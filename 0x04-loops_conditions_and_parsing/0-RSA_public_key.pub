@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Generate RSA key pair
+ssh-keygen -t rsa -b 4096 -N "" -f id_rsa
+
+# Save the public key to a file
+pubkey_file="0-RSA_public_key.pub"
+cat id_rsa.pub > "$pubkey_file"
+
+# Display the public key
+echo "Public key:"
+cat "$pubkey_file"
