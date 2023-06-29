@@ -1,12 +1,1 @@
-#!/usr/bin/env bash
-
-# Generate RSA key pair
-ssh-keygen -t rsa -b 4096 -N "" -f id_rsa
-
-# Save the public key to a file
-pubkey_file="0-RSA_public_key.pub"
-cat id_rsa.pub > "$pubkey_file"
-
-# Display the public key
-echo "Public key:"
-cat "$pubkey_file"
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDU//66TJBz8GpnaEDszd0I3MR070WOaYH17vBBr1J+hCqezNg/8hdq83H0GOlooCR0pr8+jeE8xGBsQ8AFwZmdxREEhvURftmCyKI/kGZCT31R/EcOcsfROE1w4U1oI8zTO2oMnigycRfrKbCp43JLHvxpgCmDBwyjbVb0Nw/+dasI0cpmqfRXrCWKmpZ+GKUgCk3xZroUnTjARIFgy+0n5FKwe1bBnTvEqK1oD51mfCqRcWwrDLAxDc91donfyNM/9/kiPZCmB6gh2GWz+ExvLj8nTub5/1lJ5ek/H/nZPQUl9sgRnRnhuha+HPo1kp2B3zyYqApZssjrygL3Nk+hX3guk3csMR7CcbTlbl/wJ5QffbJSDYXcYwqxQOhrdwKi9yaCKQymlYm1nO36JUT3GPtIq+93RI3MKIprjYFCtV0+GjmFr05y2V1qffCWB3wSGHYm3aWHn3Y/6HbyDdLdTEvglP996VSdMHVZ9oWfIjpFQxXONMXDyK13xmOgLE7gOHq3bll2LD/raJ3Ok86pNW/u9IG1TS3HVOec97moVRdi6Zow9cNf+3BV3vB+oxedasA8laW7k8MRVTolrzwOloeCIAr5VJNTuvjhYhQ8AnrQjt51f98bkLj6C2knHoTHe9wTLVsHF5nYGYnznDl6sf8GwP/XfELtb/KkVUjnfw== vagrant@ubuntu-focal
