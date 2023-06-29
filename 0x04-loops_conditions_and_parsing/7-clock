@@ -4,11 +4,18 @@
 hour=0
 minute=1
 
-while [[ $hour -lt 13 ]]; do
+while [[ $hour -lt 12 ]]; do
+    echo "Hour: $hour"
     while [[ $minute -lt 60 ]]; do
-        printf "%02d:%02d\n" "$hour" "$minute"
+        echo "$minute"
         ((minute++))
     done
     ((hour++))
     minute=0
+done
+
+echo "Hour: 12"
+while [[ $minute -lt 60 ]]; do
+    echo "$minute"
+    ((minute++))
 done
