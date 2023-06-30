@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# This script kills the highlander process
 
 # Create the file /var/run/myscript.pid containing its PID
 echo $$ > /var/run/myscript.pid
