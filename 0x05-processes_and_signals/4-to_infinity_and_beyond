@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script runs "To infinity and beyond" indefinitely
-# It also includes a trap to handle SIGTERM gracefully
+# It writes its PID to a named pipe for stopping it later
 
 trap 'echo "Terminated"; exit 0' SIGTERM
 
