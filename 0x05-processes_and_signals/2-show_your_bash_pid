@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script displays lines containing the word "bash" to get the PID of the Bash process.
+
+# Use the ps command to list all processes and grep for "bash" while ignoring the current grep process.
+# The 'grep' command itself will be included in the output, but we can ignore it using the 'grep -v' option.
+# The 'grep -v' option excludes lines that contain the given pattern (in this case, the current grep process).
+ps aux | grep "[b]ash"
+# shellcheck disable=SC2009
