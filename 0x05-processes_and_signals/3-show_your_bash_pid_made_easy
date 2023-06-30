@@ -12,6 +12,6 @@ for pid_dir in /proc/[0-9]*/; do
     if grep -q "bash" <<< "$cmdline"; then
         # Retrieve the process name from the /proc/<PID>/status file
         process_name=$(awk '/^Name:/ {print $2}' "$pid_dir/status")
-        echo "PID: $pid, Process Name: $process_name"
+        echo "$pid $process_name"
     fi
 done
