@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# 101-manage_my_process init script
+
+process_file="/var/run/my_process.pid"
+script_name="manage_my_process"
+
+if [[ "${1}" == "start" ]]; then
+    if [[ -f "$process_file" ]]; then
+        echo "$script_name is already running."
+    else
+        ./"$script_name" &
+        echo "$!" >"$process_file"
+        echo "$script_name started"
+    fi
+elif [[ "${1}" == "stop" ]]; then
+    if [[ -f "$process_file" ]]; then
+        echo "$script_name stopped"
+        kill "$(cat "$process_file")"
+        rm "$process_file"
+    else
+        echo "$script_name is not running."
+    fi
+elif [[ "${1}" == "restart" ]]; then
+    if [[ -f "$process_file" ]]; then
+        echo "$script_name restarted"
+        kill "$(cat "$process_file")"
+        rm "$process_file"
+    fi
+    ./"$script_name" &
+    echo "$!" >"$process_file"
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi
