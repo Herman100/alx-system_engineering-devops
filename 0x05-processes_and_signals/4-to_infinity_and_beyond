@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-# This script displays "To infinity and beyond indefinitely" with a sleep of 2 seconds between each iteration.
+# This script runs "To infinity and beyond" indefinitely
+# It also includes a trap to handle SIGTERM gracefully
 
+trap 'echo "Terminated"; exit 0' SIGTERM
+
+echo "To infinity and beyond"
 while true; do
     echo "To infinity and beyond"
-    sleep 2
+    sleep 1
 done
