@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
-# This script runs "To infinity and beyond" indefinitely
-# It writes its PID to a named pipe for stopping it later
+# This script displays "To infinity and beyond" indefinitely
 
-trap 'echo "Terminated"; exit 0' SIGTERM
-
-echo "To infinity and beyond"
 while true; do
     echo "To infinity and beyond"
     sleep 2
