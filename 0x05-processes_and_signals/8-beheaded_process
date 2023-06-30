@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script kills the highlander process.
+
+# Get the process ID of the highlander process.
+pid=$(pgrep -f 'highlander')
+
+# Kill the process.
+kill -9 "$pid"
+
+# Check if the process is still running.
+if ps -p "$pid" > /dev/null; then
+
+  # The process is still running, so kill it again.
+  kill -9 "$pid"
+
+fi
