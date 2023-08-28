@@ -1,7 +1,5 @@
 #puppet file to test server
 
-include stdlib
-
 file_line { 'password_change':
   ensure  => present,
   path    => '/etc/ssh/ssh_config',
