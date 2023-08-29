@@ -1,7 +1,24 @@
-# Script that installs nginx and configures it
+#!/usr/bin/env bash
 
-apt-get -y update
-apt-get -y install nginx
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
-sed -i 's/8080/80/g' /etc/nginx/sites-available/default
-service nginx restart
+# Update the package lists for upgrades and new package installations
+sudo apt-get update
+
+# Install nginx
+sudo apt-get install -y nginx
+
+# Remove the default nginx configuration
+sudo rm /etc/nginx/sites-enabled/default
+
+# Create a new nginx configuration
+echo 'server {
+    listen 80;
+    location / {
+        return 200 "Hello World!";
+    }
+}' | sudo tee /etc/nginx/sites-available/hello_world
+
+# Enable the new configuration
+sudo ln -s /etc/nginx/sites-available/hello_world /etc/nginx/sites-enabled/
+
+# Restart nginx to apply the changes (without using systemctl)
+sudo service nginx restart
