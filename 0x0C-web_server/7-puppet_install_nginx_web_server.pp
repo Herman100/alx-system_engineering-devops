@@ -1,9 +1,7 @@
 # nginx package installation w puppet
 
-
 package { 'nginx':
-  ensure  => installed,
-  require => Package['nginx'],
+  ensure => installed,
 }
 
 file { '/var/www/html/index.nginx-debian.html':
@@ -31,7 +29,6 @@ file { '/etc/nginx/sites-available/default':
                 try_files \$uri \$uri/ =404;
         }
 }"
-require   => Package['nginx'],
 }
 
 service { 'nginx':
