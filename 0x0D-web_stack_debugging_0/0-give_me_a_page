@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 # This script starts Apache in a Docker container and sets the ServerName directive
 
-# Docker container ID
-CONTAINER_ID="6378dc0feaee"
 
 # Connect to the Docker container and run the commands
-docker exec -it $CONTAINER_ID /bin/bash -c "
-    # Start Apache
-    service apache2 start
-
     # Add ServerName directive to Apache configuration
     echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
-    # Restart Apache
+    # Start Apache
     service apache2 restart
-"
