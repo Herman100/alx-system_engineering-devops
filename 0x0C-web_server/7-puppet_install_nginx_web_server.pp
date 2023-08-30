@@ -1,20 +1,18 @@
 # nginx package installation w puppet
 
-# This class installs and configures an Nginx server
-class nginx {
-  package { 'nginx':
-    ensure => installed,
-  }
+package { 'nginx':
+  ensure => installed,
+}
 
-  file { '/var/www/html/index.nginx-debian.html':
-    ensure  => file,
-    content => 'Hello World!',
-    require => Package['nginx'],
-  }
+file { '/var/www/html/index.nginx-debian.html':
+  ensure  => file,
+  content => 'Hello World!',
+  require => Package['nginx'],
+}
 
-  file { '/etc/nginx/sites-available/default':
-    ensure  => file,
-    content => '
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => '
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -28,14 +26,11 @@ server {
         return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
     }
 }',
-    require => Package['nginx'],
-  }
-
-  service { 'nginx':
-    ensure    => running,
-    enable    => true,
-    subscribe => File['/etc/nginx/sites-available/default'],
-  }
+  require => Package['nginx'],
 }
 
-include nginx
+service { 'nginx':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/nginx/sites-available/default'],
+}
