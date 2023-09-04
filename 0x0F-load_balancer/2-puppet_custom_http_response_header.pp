@@ -1,18 +1,16 @@
 # Install Nginx
 package { 'nginx':
-  ensure => present,
+  ensure => installed,
 }
 
-file { '/etc/nginx/nginx.conf':
-  content => template('custom_http_response_header.conf.erb'),
+# Set the hostname as the value for the custom HTTP header "X-Served-By"
+file_line { 'nginx_custom_header':
+  path  => '/etc/nginx/nginx.conf',
+  line  => "add_header X-Served-By ${::hostname};",
+  match => '^add_header X-Served-By',
 }
 
-template 'custom_http_response_header.conf.erb' {
-  source => 'custom_http_response_header.conf.erb',
-  variables => {
-    hostname => $::hostname,
-  },
-}
+# Restart Nginx to apply changes
 
 service { 'nginx':
   ensure    => running,
