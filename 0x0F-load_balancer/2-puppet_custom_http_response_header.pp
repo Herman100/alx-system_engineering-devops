@@ -1,20 +1,26 @@
-# Install Nginx
-package { 'nginx':
-  ensure => installed,
+# Update package lists
+exec { 'update':
+  command  => 'sudo apt-get update',
+  provider => shell,
 }
 
-# Set the hostname as the value for the custom HTTP header "X-Served-By"
-file_line { 'custom_header_line':
+# Install Nginx
+package { 'nginx':
   ensure => present,
-  path   => '/etc/nginx/nginx.conf',
-  line   => "add_header X-Served-By ${hostname};",
-  match  => '^add_header X-Served-By',
+}
+
+# Add custom HTTP header to Nginx configuration
+file_line { 'header line':
+  ensure => present,
+  path   => '/etc/nginx/sites-available/default',
+  line   => "\tlocation / {\n\t\tadd_header X-Served-By ${hostname};",
+  match  => '^\tlocation / {',
 }
 
 # Restart Nginx to apply changes
-service { 'nginx':
-  ensure     => running,
-  enable     => true,
-  hasrestart => true,
-  subscribe  => File_line['custom_header_line'],
+exec { 'restart service':
+  command  => 'sudo service nginx restart',
+  provider => shell,
 }
+
+Exec['update'] -> Package['nginx'] -> File_line['header line'] -> Exec['restart service']
