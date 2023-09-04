@@ -6,7 +6,7 @@ package { 'nginx':
 # Define a custom HTTP header
 file { '/etc/nginx/conf.d/custom_header.conf':
   ensure  => file,
-  content => "add_header X-Served-By $hostname;\n",
+  content => "add_header X-Served-By ${hostname};\n",
   notify  => Service['nginx'],
 }
 
