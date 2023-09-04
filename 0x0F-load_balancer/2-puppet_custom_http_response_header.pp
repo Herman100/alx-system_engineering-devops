@@ -1,40 +1,10 @@
-# Automates installation and configuration of nginx
-
-package { 'nginx':
-  ensure => installed,
+file { '/etc/nginx/nginx.conf':
+  content => template('custom_http_response_header.conf.erb'),
 }
 
-file { '/var/www/html/index.nginx-debian.html':
-  ensure  => present,
-  content => 'Hello World!',
-}
-
-file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content =>
-"server {
-		listen 80 default_server;
-
-        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
-
-        listen [::]:80 default_server;
-
-        root /var/www/html;
-
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
-        location / {
-				add_header X-Served-By \$hostname;
-                try_files \$uri \$uri/ =404;
-        }
-}"
-}
-
-service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  hasstatus => true,
-  require   => Package['nginx'],
+template 'custom_http_response_header.conf.erb' {
+  source => 'custom_http_response_header.conf.erb',
+  variables => {
+    hostname => $::hostname,
+  },
 }
