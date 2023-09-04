@@ -1,17 +1,40 @@
-# Install Nginx package
+# Automates installation and configuration of nginx
+
 package { 'nginx':
-  ensure => 'installed',
+  ensure => installed,
 }
 
-# Define a custom HTTP header
-file { '/etc/nginx/conf.d/custom_header.conf':
-  ensure  => file,
-  content => "add_header X-Served-By ${hostname};\n",
-  notify  => Service['nginx'],
+file { '/var/www/html/index.nginx-debian.html':
+  ensure  => present,
+  content => 'Hello World!',
 }
 
-# Ensure Nginx service is running
+file { '/etc/nginx/sites-available/default':
+  ensure  => present,
+  content =>
+"server {
+		listen 80 default_server;
+
+        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+				add_header X-Served-By \$hostname;
+                try_files \$uri \$uri/ =404;
+        }
+}"
+}
+
 service { 'nginx':
-  ensure => 'running',
-  enable => true,
+  ensure    => running,
+  enable    => true,
+  hasstatus => true,
+  require   => Package['nginx'],
 }
