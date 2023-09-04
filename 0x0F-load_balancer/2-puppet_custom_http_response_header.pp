@@ -1,9 +1,3 @@
-# Update package lists
-exec { 'update':
-  command  => 'sudo apt-get update',
-  provider => shell,
-}
-
 # Install Nginx
 package { 'nginx':
   ensure => present,
@@ -23,4 +17,4 @@ exec { 'restart service':
   provider => shell,
 }
 
-Exec['update'] -> Package['nginx'] -> File_line['header line'] -> Exec['restart service']
+Package['nginx'] -> File_line['header line'] -> Exec['restart service']
