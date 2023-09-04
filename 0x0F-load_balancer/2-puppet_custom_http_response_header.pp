@@ -1,20 +1,19 @@
-# Install Nginx
-package { 'nginx':
-  ensure => installed,
+#puppet advance
+exec { 'update':
+  command  => 'sudo apt-get update',
+  provider => shell,
 }
-
-# Set the hostname as the value for the custom HTTP header "X-Served-By"
-file_line { 'nginx_custom_header':
-  path  => '/etc/nginx/sites-available/default',
-  line  => "add_header X-Served-By ${hostname};",
-  match => '^add_header X-Served-By',
+-> package {'nginx':
+  ensure => present,
 }
-
-# Restart Nginx to apply changes
-
-service { 'nginx':
-  ensure    => running,
-  enable    => true,
-  hasstatus => true,
-  require   => Package['nginx'],
+-> file_line { 'header line':
+  ensure => present,
+  path   => '/etc/nginx/sites-available/default',
+  line   => "	location / {
+  add_header X-Served-By ${hostname};",
+  match  => '^\tlocation / {',
+}
+-> exec { 'restart service':
+  command  => 'sudo service nginx restart',
+  provider => shell,
 }
