@@ -5,8 +5,8 @@ package { 'nginx':
 
 # Set the hostname as the value for the custom HTTP header "X-Served-By"
 file_line { 'nginx_custom_header':
-  path  => '/etc/nginx/nginx.conf',
-  line  => "add_header X-Served-By ${::hostname};",
+  path  => '/etc/nginx/sites-available/default',
+  line  => "add_header X-Served-By ${hostname};",
   match => '^add_header X-Served-By',
 }
 
