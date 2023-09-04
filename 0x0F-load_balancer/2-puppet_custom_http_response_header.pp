@@ -1,20 +1,17 @@
-# Install Nginx
+# Install Nginx package
 package { 'nginx':
-  ensure => present,
+  ensure => 'installed',
 }
 
-# Start Nginx service
+# Define a custom HTTP header
+file { '/etc/nginx/conf.d/custom_header.conf':
+  ensure  => file,
+  content => "add_header X-Served-By $hostname;\n",
+  notify  => Service['nginx'],
+}
+
+# Ensure Nginx service is running
 service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => Package['nginx'],
-}
-
-# Set the hostname as the value for the custom HTTP header "X-Served-By"
-file_line { 'nginx_custom_header':
-  path   => '/etc/nginx/nginx.conf',
-  line   => "    add_header X-Served-By $::hostname;",
-  match  => '^http {',
-  after  => '^http {',
-  notify => Service['nginx'],
+  ensure => 'running',
+  enable => true,
 }
