@@ -1,0 +1,11 @@
+
+frontend www-https
+    bind *:443 ssl crt /etc/letsencrypt/live/www.skray.tech/haproxy.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend back_servers
+
+backend back_servers
+   balance roundrobin
+   server web-01 100.25.182.117:80 check
+   server web-02 52.86.206.209:80 check
+
