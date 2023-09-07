@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-apt-get -y update
-apt-get -y install nginx
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-service nginx restart
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "daemon off;" | sudo tee -a /etc/nginx/nginx.conf > /dev/null
+sudo service nginx start
