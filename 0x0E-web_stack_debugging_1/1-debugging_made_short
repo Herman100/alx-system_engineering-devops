@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # This script installs and starts the nginx web server
-apt-get -y install nginx
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+[ $(pgrep nginx) ] || service nginx start
+[ $(netstat -tulpn | grep :80) ] || (sed -i 's/listen [0-9]*;/listen 80;/' /etc/nginx/sites-available/default)
 service nginx restart
