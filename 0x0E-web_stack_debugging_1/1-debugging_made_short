@@ -2,5 +2,5 @@
 apt-get -y update
 apt-get -y install nginx
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-echo "daemon off;" | sudo tee -a /etc/nginx/nginx.conf
+start-stop-daemon --start --background --exec /usr/sbin/nginx -- -c /etc/nginx/nginx.conf
 service nginx restart
