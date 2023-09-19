@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
-# This script configures the container to run Nginx as 'nginx' user and listen on port 8080
-#kill apache2 running on container
+# runs nginx as nginx
 pkill apache2
-#changing owner and permissions for nginx
 chown nginx:nginx /etc/nginx/nginx.conf
 chmod 777 /etc/nginx/nginx.conf
-# Change Nginx configuration to listen on port 8080
-sed -i 's/listen 80 default_server/listen 8080 default_server/g' /etc/nginx/sites-available/default
-
-# Change Nginx configuration to run as 'ndddginx' user
-#sed -i 's/user www-data/user nginx/g' /etc/nginx/nginx.conf
-
-# Restart Nginx service
-service nginx restart
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+sudo -u nginx service nginx start
