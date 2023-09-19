@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Check if a password was provided as an argument
+if [ -z "$1" ]; then
+  echo "Usage: $0 <password>"
+  exit 1
+fi
+
+# Set the password to the one provided as an argument
+export MYSQL_PWD="$1"
+
+# Generate the MySQL dump and save it as backup.sql
+mysqldump -u root --all-databases > backup.sql
+
+# Get the current date in day-month-year format
+current_date=$(date +%d-%m-%Y)
+
+# Create a compressed archive from the MySQL dump
+tar -czf "$current_date.tar.gz" backup.sql
