@@ -40,8 +40,6 @@ def write_to_csv(user_id, user, todos):
     """
     with open('{}.csv'.format(user_id), 'w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(["USER_ID", "USERNAME",
-                        "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         for task in todos:
             writer.writerow([user_id, user['username'],
                             task['completed'], task['title']])
