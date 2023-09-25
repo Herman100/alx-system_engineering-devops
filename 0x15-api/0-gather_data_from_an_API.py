@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+"""
+This module uses the JSONPlaceholder API to get information about an employee's
+TODO list progress.
+
+It uses the requests module to make HTTP requests and sys module to read the
+command-line argument.
+"""
+
 import requests
 import sys
 
