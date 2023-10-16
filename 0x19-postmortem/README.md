@@ -47,5 +47,5 @@ The issue was fixed by reverting the load balancer to its previous, working conf
 ####  Regular Audits:
    - Schedule regular audits of system configurations to ensure accuracy and compliance with established standards.
 
-### By implementing these measures, TAskify, Inc. aims to prevent similar incidents in the future and ensure the continued satisfaction of our customers.
+### By implementing these measures, Taskify, Inc. aims to prevent similar incidents in the future and ensure the continued satisfaction of our customers.
 
