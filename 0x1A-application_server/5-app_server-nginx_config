@@ -38,8 +38,7 @@ server {
         #
         # include snippets/snakeoil.conf;
 
-        # root /var/www/html;
-        root /home/ubuntu/AirBnB_clone_v4/web_dynamic;
+        root /var/www/html;
 
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
@@ -50,12 +49,12 @@ server {
         }
 
 
-        #location / {
+        # location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
                 #rewrite ^ /0-index.html break;
-        #       try_files $uri $uri/ =404;
-        #}
+        #        try_files $uri $uri/ =404;
+        # }
 
         location /airbnb-onepage/ {
                 proxy_pass http://localhost:5000;
@@ -79,12 +78,12 @@ server {
 
         location / {
                 proxy_pass http://127.0.0.1:5003/2-hbnb;
-                proxy_set_header Host $host;
-                proxy_set_header X-Real-IP $remote_addr;
         }
 
-        location /static/ {
+        location /static {
+                alias web_dynamic/static/;
         }
+
 
 
         # pass PHP scripts to FastCGI server
