@@ -1,5 +1,7 @@
-#Fixing the nginx by increasing the process handling
-exec { 'process-scaling':
-  command => "sed -i 's/worker_processes 4;/worker_processes 7;/g' /etc/nginx/nginx.conf; sudo service nginx restart",
-  path    => ['/bin', '/usr/bin', '/usr/sbin']
+# handling variable lengths
+exec { 'create-ab-test-script':
+  command => "/bin/bash -c 'echo -e \"#!/bin/bash\nab -c 100 -n 2000 -l localhost/\" \
+               > /usr/local/bin/ab-test && chmod 0755 /usr/local/bin/ab-test'",
+  path    => ['/bin', '/usr/bin', '/usr/sbin'],
+  unless  => 'test -f /usr/local/bin/ab-test',
 }
